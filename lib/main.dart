@@ -20,10 +20,13 @@ class CounterStorage {
 
     return directory.path;
   }
-
   Future<File> get _localFile async {
     final path = await _localPath;
-    return File('$path/counter.txt');
+    return File('${path}/counter.txt');
+  }
+  Future<File> get _localFile2 async {
+    final path = await _localPath;
+    return File('${path}/text.txt');
   }
 
   Future<int> readCounter() async {
@@ -46,6 +49,26 @@ class CounterStorage {
     // Write the file
     return file.writeAsString('$counter');
   }
+  Future<String> readText() async {
+    try {
+      final file = await _localFile2;
+
+      // Read the file
+      String contents = await file.readAsString();
+
+      return contents;
+    } catch (e) {
+      // If encountering an error, return 0
+      return 'S';
+    }
+  }
+
+  Future<File> writeText(String counter) async {
+    final file = await _localFile2;
+
+    // Write the file
+    return file.writeAsString('$counter');
+  }
 }
 
 class FlutterDemo extends StatefulWidget {
@@ -58,25 +81,32 @@ class FlutterDemo extends StatefulWidget {
 }
 
 class _FlutterDemoState extends State<FlutterDemo> {
-  String _counter = '1';
+  int _counter = 1;
+  String _text = '';
 
   @override
   void initState() {
     super.initState();
     widget.storage.readCounter().then((int value) {
       setState(() {
-        _counter += value.toString();
+        _counter += value;
+      });
+    });
+    widget.storage.readText().then((String value) {
+      setState(() {
+        _text += value;
       });
     });
   }
 
   Future<File> _incrementCounter() {
     setState(() {
-      _counter += '1';
+      _counter += 1;
+      _text += 's';
     });
-
+    widget.storage.writeText(_text);
     // Write the variable as a string to the file.
-    return widget.storage.writeCounter(_counter);
+    return widget.storage.writeCounter(_counter.toString());
   }
 
   @override
@@ -85,7 +115,7 @@ class _FlutterDemoState extends State<FlutterDemo> {
       appBar: AppBar(title: Text('Reading and Writing Files')),
       body: Center(
         child: Text(
-          'Button tapped $_counter ',
+          'Button tapped $_counter \n $_text ',
         ),
       ),
       floatingActionButton: FloatingActionButton(
@@ -93,6 +123,6 @@ class _FlutterDemoState extends State<FlutterDemo> {
         tooltip: 'Increment',
         child: Icon(Icons.add),
       ),
-    );
+      );
   }
 }
