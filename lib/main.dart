@@ -4,7 +4,7 @@ import 'dart:convert';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';
-
+import './io.dart';
 void main() {
   runApp(
     MaterialApp(
@@ -14,62 +14,6 @@ void main() {
   );
 }
 
-class CounterStorage {
-  Future<String> get _localPath async {
-    final directory = await getApplicationDocumentsDirectory();
-
-    return directory.path;
-  }
-  Future<File> get _localFile async {
-    final path = await _localPath;
-    return File('${path}/counter.txt');
-  }
-  Future<File> get _localFile2 async {
-    final path = await _localPath;
-    return File('${path}/text.txt');
-  }
-
-  Future<int> readCounter() async {
-    try {
-      final file = await _localFile;
-
-      // Read the file
-      String contents = await file.readAsString();
-
-      return int.parse(contents);
-    } catch (e) {
-      // If encountering an error, return 0
-      return 0;
-    }
-  }
-
-  Future<File> writeCounter(String counter) async {
-    final file = await _localFile;
-
-    // Write the file
-    return file.writeAsString('$counter');
-  }
-  Future<String> readText() async {
-    try {
-      final file = await _localFile2;
-
-      // Read the file
-      String contents = await file.readAsString();
-
-      return contents;
-    } catch (e) {
-      // If encountering an error, return 0
-      return 'S';
-    }
-  }
-
-  Future<File> writeText(String counter) async {
-    final file = await _localFile2;
-
-    // Write the file
-    return file.writeAsString('$counter');
-  }
-}
 
 class FlutterDemo extends StatefulWidget {
   final CounterStorage storage;
@@ -81,20 +25,16 @@ class FlutterDemo extends StatefulWidget {
 }
 
 class _FlutterDemoState extends State<FlutterDemo> {
-  int _counter = 1;
+  int _counter = 0;
   String _text = '';
 
   @override
   void initState() {
     super.initState();
-    widget.storage.readCounter().then((int value) {
-      setState(() {
-        _counter += value;
-      });
-    });
     widget.storage.readText().then((String value) {
       setState(() {
-        _text += value;
+        _text = value;
+        _counter = 0;
       });
     });
   }
@@ -104,9 +44,9 @@ class _FlutterDemoState extends State<FlutterDemo> {
       _counter += 1;
       _text += 's';
     });
-    widget.storage.writeText(_text);
+    return widget.storage.writeText(_text);
     // Write the variable as a string to the file.
-    return widget.storage.writeCounter(_counter.toString());
+
   }
 
   @override
