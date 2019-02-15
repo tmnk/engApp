@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'dart:io';
-
+import 'dart:convert';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';
@@ -40,7 +40,7 @@ class CounterStorage {
     }
   }
 
-  Future<File> writeCounter(int counter) async {
+  Future<File> writeCounter(String counter) async {
     final file = await _localFile;
 
     // Write the file
@@ -58,21 +58,21 @@ class FlutterDemo extends StatefulWidget {
 }
 
 class _FlutterDemoState extends State<FlutterDemo> {
-  int _counter;
+  String _counter = '1';
 
   @override
   void initState() {
     super.initState();
     widget.storage.readCounter().then((int value) {
       setState(() {
-        _counter = value;
+        _counter += value.toString();
       });
     });
   }
 
   Future<File> _incrementCounter() {
     setState(() {
-      _counter++;
+      _counter += '1';
     });
 
     // Write the variable as a string to the file.
@@ -85,7 +85,7 @@ class _FlutterDemoState extends State<FlutterDemo> {
       appBar: AppBar(title: Text('Reading and Writing Files')),
       body: Center(
         child: Text(
-          'Button tapped $_counter time${_counter == 1 ? '' : 's'}.',
+          'Button tapped $_counter ',
         ),
       ),
       floatingActionButton: FloatingActionButton(
