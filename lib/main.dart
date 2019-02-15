@@ -38,33 +38,59 @@ class MListState extends State<MyApp> {
           children: <Widget>[
             ButtonTheme(
               minWidth: 16.0,
-              height: 30.0,
+              height: 100.0,
               child: RaisedButton(
                 onPressed: () => print("a"),
                 child: new Row(
                   mainAxisSize: MainAxisSize.min,
                   children: <Widget>[
                     Padding(
-                      padding: const EdgeInsets.only(right: 6.0),
                       child: Text(
                         'SORT BY',
                         style: TextStyle(fontSize: 12.0),
                       ),
-                    ),
-                    Icon(
-                      Icons.keyboard_arrow_down,
-                      size: 20.0,
+                      padding: EdgeInsets.all(10),
                     ),
                   ],
                 ),
               ),
             ),
-            SizedBox(
-            width: 100,
-            height: 100,
-            child: Center(child: Text(
-              "Hee"
-            ))),
+            Center (
+              child :
+              SizedBox(
+                  width: 400,
+                  height: 100,
+
+                  child: Center(child:
+                  RaisedButton(
+                    color : Colors.amber,
+                    onPressed: () {
+
+                    },
+
+                    child: Center(child: Text('EN')),
+                  ),
+                ),
+            ),
+            ),
+            Padding(
+              child : SizedBox(
+                width: 100,
+                height: 100,
+
+                child: Center(child:
+                RaisedButton(
+                  color : Colors.lightGreenAccent,
+                  onPressed: () {
+
+                  },
+
+                  child: Center(child: Text('EN')),
+                ),
+                ),
+              ),
+              padding: EdgeInsets.symmetric(vertical: 10, horizontal: 40),
+            ),
             RaisedButton(
               onPressed: () {
 
@@ -76,7 +102,7 @@ class MListState extends State<MyApp> {
               onPressed: () {
 
               },
-                child: Text('5'),
+              child: Text('5'),
               color: Colors.green,
             ),
             RaisedButton(
