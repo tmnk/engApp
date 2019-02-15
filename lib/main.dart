@@ -1,141 +1,98 @@
+import 'dart:async';
+import 'dart:io';
+
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:path_provider/path_provider.dart';
 
-void main() => runApp(MyApp());
+void main() {
+  runApp(
+    MaterialApp(
+      title: 'Reading and Writing Files',
+      home: FlutterDemo(storage: CounterStorage()),
+    ),
+  );
+}
 
-class MyApp extends StatefulWidget {
+class CounterStorage {
+  Future<String> get _localPath async {
+    final directory = await getApplicationDocumentsDirectory();
 
+    return directory.path;
+  }
 
-  @override
-  State<StatefulWidget> createState() {
-    // TODO: implement createState
-    return MListState();
+  Future<File> get _localFile async {
+    final path = await _localPath;
+    return File('$path/counter.txt');
+  }
+
+  Future<int> readCounter() async {
+    try {
+      final file = await _localFile;
+
+      // Read the file
+      String contents = await file.readAsString();
+
+      return int.parse(contents);
+    } catch (e) {
+      // If encountering an error, return 0
+      return 0;
+    }
+  }
+
+  Future<File> writeCounter(int counter) async {
+    final file = await _localFile;
+
+    // Write the file
+    return file.writeAsString('$counter');
   }
 }
-//var theme = ThemeData(
-//  RaisedButton :
-//);
-class MListState extends State<MyApp> {
-  List data = [["Вода", "Земля", "Воздух", "Спина","Что обычно болит?", 3],["Нога", "Ухо", "Воздух", "Спина","Что не обычно болит?", 2],["Макароны", "Земля", "Воздух", "Огонь","Что обычно едят?",0]];
-  var MCol = [Colors.blue,Colors.blue,Colors.blue,Colors.blue,Colors.blue];
-  int _id = 4;
-  int ansCount = 0;
+
+class FlutterDemo extends StatefulWidget {
+  final CounterStorage storage;
+
+  FlutterDemo({Key key, @required this.storage}) : super(key: key);
+
+  @override
+  _FlutterDemoState createState() => _FlutterDemoState();
+}
+
+class _FlutterDemoState extends State<FlutterDemo> {
+  int _counter;
+
+  @override
+  void initState() {
+    super.initState();
+    widget.storage.readCounter().then((int value) {
+      setState(() {
+        _counter = value;
+      });
+    });
+  }
+
+  Future<File> _incrementCounter() {
+    setState(() {
+      _counter++;
+    });
+
+    // Write the variable as a string to the file.
+    return widget.storage.writeCounter(_counter);
+  }
 
   @override
   Widget build(BuildContext context) {
-    final title = 'Basic List';
-    final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
-    var giga = ["1", "2", "3", "4", "Вопрос"];
-    return MaterialApp(
-      title: title,
-
-      debugShowCheckedModeBanner: false,
-      home: Scaffold(
-        appBar: AppBar(
-          title: Text("EngApp"),
+    return Scaffold(
+      appBar: AppBar(title: Text('Reading and Writing Files')),
+      body: Center(
+        child: Text(
+          'Button tapped $_counter time${_counter == 1 ? '' : 's'}.',
         ),
-        key: _scaffoldKey,
-        body: ListView(
-          children: <Widget>[
-            ButtonTheme(
-              minWidth: 16.0,
-              height: 100.0,
-              child: RaisedButton(
-                onPressed: () => print("a"),
-                child: new Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: <Widget>[
-                    Padding(
-                      child: Text(
-                        'SORT BY',
-                        style: TextStyle(fontSize: 12.0),
-                      ),
-                      padding: EdgeInsets.all(10),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-            Center (
-              child :
-              SizedBox(
-                  width: 400,
-                  height: 100,
-
-                  child: Center(child:
-                  RaisedButton(
-                    color : Colors.amber,
-                    onPressed: () {
-
-                    },
-
-                    child: Center(child: Text('EN')),
-                  ),
-                ),
-            ),
-            ),
-            Padding(
-              child : SizedBox(
-                width: 100,
-                height: 100,
-
-                child: Center(child:
-                RaisedButton(
-                  color : Colors.lightGreenAccent,
-                  onPressed: () {
-
-                  },
-
-                  child: Center(child: Text('EN')),
-                ),
-                ),
-              ),
-              padding: EdgeInsets.symmetric(vertical: 10, horizontal: 40),
-            ),
-            RaisedButton(
-              onPressed: () {
-
-              },
-
-              child: Center(child: Text('EN')),
-            ),
-            RaisedButton(
-              onPressed: () {
-
-              },
-              child: Text('5'),
-              color: Colors.green,
-            ),
-            RaisedButton(
-              color: Colors.lightGreenAccent,
-              onPressed: () {
-
-              },
-
-              child: Text('4'),
-            ),
-            RaisedButton(
-              color: Colors.yellowAccent,
-              onPressed: () {
-
-              },
-
-              child: Text('3'),
-            ),
-            RaisedButton(
-
-              color: Colors.red,
-              onPressed: () {
-
-              },
-
-              child: Text('2'),
-            ),
-          ],
-        ),
-
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: _incrementCounter,
+        tooltip: 'Increment',
+        child: Icon(Icons.add),
       ),
     );
   }
-
 }
-
