@@ -1,68 +1,40 @@
-import 'dart:async';
-import 'dart:io';
-import 'dart:convert';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:path_provider/path_provider.dart';
-import './io.dart';
-void main() {
-  runApp(
-    MaterialApp(
-      title: 'Reading and Writing Files',
-      home: FlutterDemo(storage: CounterStorage()),
-    ),
-  );
+import './detail.dart';
+void main() => runApp(HeroApp());
+
+class HeroApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Transition Demo',
+      home: MainScreen(),
+    );
+  }
 }
 
-
-class FlutterDemo extends StatefulWidget {
-  final CounterStorage storage;
-
-  FlutterDemo({Key key, @required this.storage}) : super(key: key);
-
-  @override
-  _FlutterDemoState createState() => _FlutterDemoState();
-}
-
-class _FlutterDemoState extends State<FlutterDemo> {
-  int _counter = 0;
-  String _text = '';
-
-  @override
-  void initState() {
-    super.initState();
-    widget.storage.readText().then((String value) {
-      setState(() {
-        _text = value;
-        _counter = 0;
-      });
-    });
-  }
-
-  Future<File> _incrementCounter() {
-    setState(() {
-      _counter += 1;
-      _text += 's';
-    });
-    return widget.storage.writeText(_text);
-    // Write the variable as a string to the file.
-
-  }
-
+class MainScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Reading and Writing Files')),
-      body: Center(
-        child: Text(
-          'Button tapped $_counter \n $_text ',
+      appBar: AppBar(
+        title: Text('Main Screen'),
+      ),
+      body: GestureDetector(
+        child: Hero(
+          tag: 'imageHero',
+          child: Image.network(
+            'https://picsum.photos/250?image=9',
+          ),
         ),
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => DetailScreen(testValue : 1),
+            ),
+          );
+        },
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: Icon(Icons.add),
-      ),
-      );
+    );
   }
 }
