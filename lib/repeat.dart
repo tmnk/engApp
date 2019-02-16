@@ -21,6 +21,8 @@ class FlutterDemo extends StatefulWidget {
 class _FlutterDemoState extends State<FlutterDemo> {
   double _counter = 0;
   String _text = 'w';
+  String _firstWord = "English";
+  String _secondWord = "Руcский";
 //  Collection _data = new Collection(0, [], DateTime.now());
   @override
   void initState() {
@@ -49,16 +51,92 @@ class _FlutterDemoState extends State<FlutterDemo> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text('Reading and Writing Files')),
-      body: Center(
-        child: Text(
-          'Button tapped $_counter \n $_text \n  ',
-        ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: Icon(Icons.add),
-      ),
+      body: Column(
+        children: <Widget>[
+          Padding(
+            child : SizedBox(
+              width: MediaQuery.of(context).size.width ,
+              height: MediaQuery.of(context).size.height / 2,
+              child: Center(child:
+              RaisedButton(
+                color : Colors.lightGreenAccent,
+                onPressed: () {
+
+                },
+                child:
+                      Center(child: Text('\t$_firstWord \n\n\t $_secondWord')),
+              ),
+              ),
+            ),
+            padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+          ),
+
+          Padding(
+            child : SizedBox(
+              width: MediaQuery.of(context).size.width ,
+              child: Center(child:
+              RaisedButton(
+                color : Colors.green,
+                onPressed: () {
+
+                },
+                child:
+                Center(child: Text('5')),
+              ),
+              ),
+            ),
+            padding: EdgeInsets.symmetric(vertical: 0, horizontal: 10),
+          ),
+          Padding(
+            child : SizedBox(
+              width: MediaQuery.of(context).size.width ,
+              child: Center(child:
+              RaisedButton(
+                color : Colors.lightGreenAccent,
+                onPressed: () {
+
+                },
+                child:
+                Center(child: Text('4')),
+              ),
+              ),
+            ),
+            padding: EdgeInsets.symmetric(vertical: 0, horizontal: 10),
+          ),
+          Padding(
+            child : SizedBox(
+              width: MediaQuery.of(context).size.width ,
+              child: Center(child:
+              RaisedButton(
+                color : Colors.yellowAccent,
+                onPressed: () {
+
+                },
+                child:
+                Center(child: Text('3')),
+              ),
+              ),
+            ),
+            padding: EdgeInsets.symmetric(vertical: 0, horizontal: 10),
+          ),
+          Padding(
+            child : SizedBox(
+              width: MediaQuery.of(context).size.width ,
+              child: Center(child:
+              RaisedButton(
+                color : Colors.red,
+                onPressed: () {
+
+                },
+                child:
+                Center(child: Text('2')),
+              ),
+              ),
+            ),
+            padding: EdgeInsets.symmetric(vertical: 0, horizontal: 10),
+          ),
+        ],
+      )
     );
   }
 }
