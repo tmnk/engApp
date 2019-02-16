@@ -95,7 +95,7 @@ class _FlutterDemoState extends State<FlutterDemo> {
               child: Center(child:
               RaisedButton(
                 color : Colors.green,
-                onPressed: () {
+                onPressed: (_mode != "-e" && _mode != "-r")  ? null : () {
                   _chooseNum(5);
                 },
                 child:
@@ -111,8 +111,8 @@ class _FlutterDemoState extends State<FlutterDemo> {
               child: Center(child:
               RaisedButton(
                 color : Colors.yellowAccent,
-                onPressed: () {
-
+                onPressed: (_mode != "-e" && _mode != "-r")  ? null : () {
+                  _chooseNum(3);
                 },
                 child:
                 Center(child: Text('3')),
@@ -127,8 +127,8 @@ class _FlutterDemoState extends State<FlutterDemo> {
               child: Center(child:
               RaisedButton(
                 color : Colors.red,
-                onPressed: () {
-
+                onPressed: (_mode != "-e" && _mode != "-r")  ? null : () {
+                  _chooseNum(1);
                 },
                 child:
                 Center(child: Text('1')),
@@ -144,6 +144,8 @@ class _FlutterDemoState extends State<FlutterDemo> {
   }
   _chooseNum(int n) {
     _currWord.add(n);
+
+    stdout.write('<' + data.length.toString() + ' ');
     if (n == 5) succesData.add(_currWord);
     else if (n == 3) {
       if (_currWord.last3() == 1) succesData.add(_currWord);
@@ -151,6 +153,7 @@ class _FlutterDemoState extends State<FlutterDemo> {
         if (data.length == 0) succesData.add(_currWord);
         else data.insert(0, _currWord);
       }
+
     }
     else {
       if (data.length == 0) succesData.add(_currWord);
@@ -160,6 +163,8 @@ class _FlutterDemoState extends State<FlutterDemo> {
       }
     }
 
+
+    stdout.write(' ' + data.length.toString() + '>');
     setState(() {
       if (data.length == 0 && _mode == "-e") { //Конец половины обхода, надо поменять на русский
         data = succesData;

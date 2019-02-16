@@ -9,7 +9,7 @@ class Word {
     mark.add(m);
   }
   int last3 () {
-    if (mark.length != 0 && mark.last == 3) return 1;
+    if (mark.length >= 2 && mark[mark.length - 2] == 3) return 1;
     return 0;
   }
   double avg() {

@@ -81,9 +81,9 @@ class SelectionButton extends StatelessWidget {
 
   }
   _navigateToRepeat(BuildContext context) async {
-    Word a = new Word("hi", "привет", 0, [4]);
-    Word b = new Word("hijj", "привет", 0, [4, 5]);
-    Word c = new Word("hij", "привет", 0, [4, 3 , 2]);
+    Word a = new Word("Easy", "Легко", 0, [4]);
+    Word b = new Word("Normal", "Средне", 0, [4, 5]);
+    Word c = new Word("Hard", "Сложно", 0, [4, 3 , 2]);
     Collection l = new Collection(0, [a,b,c], new DateTime.utc(1989, 11, 9));
     print(l.jsonReturn());
 
