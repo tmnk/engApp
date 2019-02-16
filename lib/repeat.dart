@@ -5,20 +5,12 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';
 import './io.dart';
-void main() {
-  runApp(
-    MaterialApp(
-      title: 'Reading and Writing Files',
-      home: FlutterDemo(storage: CounterStorage()),
-    ),
-  );
-}
 
 
 class FlutterDemo extends StatefulWidget {
   final CounterStorage storage;
-
-  FlutterDemo({Key key, @required this.storage}) : super(key: key);
+  final int testValue;
+  FlutterDemo({Key key, @required this.storage, @required this.testValue}) : super(key: key);
 
   @override
   _FlutterDemoState createState() => _FlutterDemoState();
@@ -26,7 +18,7 @@ class FlutterDemo extends StatefulWidget {
 
 class _FlutterDemoState extends State<FlutterDemo> {
   int _counter = 0;
-  String _text = '';
+  String _text = 'w';
 
   @override
   void initState() {
@@ -34,7 +26,7 @@ class _FlutterDemoState extends State<FlutterDemo> {
     widget.storage.readText().then((String value) {
       setState(() {
         _text = value;
-        _counter = 0;
+        _counter = widget.testValue;
       });
     });
   }
