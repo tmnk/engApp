@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import './detail.dart';
 import './repeat.dart';
 import './io.dart';
+import './classes.dart';
 void main() {
   runApp(MaterialApp(
     debugShowCheckedModeBanner: false,

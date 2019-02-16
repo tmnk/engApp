@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import './classes.dart';
 
 
 class DetailScreen extends StatelessWidget {
@@ -32,7 +32,13 @@ class DetailScreen extends StatelessWidget {
                   RaisedButton(
                     color : Colors.lightGreenAccent,
                     onPressed: () {
-                      Navigator.pop(context, 'Yep!');
+                      Word a = new Word("hi", "привет", 0, [4]);
+                      Word b = new Word("hijj", "привет", 0, [4, 5]);
+                      Word c = new Word("hij", "привет", 0, [4, 3 , 2]);
+                      Collection l = new Collection(0, [a,b,c], new DateTime.utc(1989, 11, 9));
+                      print(l.jsonReturn());
+
+                      Navigator.pop(context, l.jsonReturn());
                     },
 
                     child: Center(child: Text('EN')),
