@@ -25,20 +25,15 @@ class DetailScreen extends StatelessWidget {
               ),
               Padding(
                 child : SizedBox(
-                  width: 100,
+                  width: MediaQuery.of(context).size.width ,
                   height: 100,
 
                   child: Center(child:
                   RaisedButton(
                     color : Colors.lightGreenAccent,
                     onPressed: () {
-                      Word a = new Word("hi", "привет", 0, [4]);
-                      Word b = new Word("hijj", "привет", 0, [4, 5]);
-                      Word c = new Word("hij", "привет", 0, [4, 3 , 2]);
-                      Collection l = new Collection(0, [a,b,c], new DateTime.utc(1989, 11, 9));
-                      print(l.jsonReturn());
 
-                      Navigator.pop(context, l.jsonReturn());
+                      Navigator.pop(context, "Yep");
                     },
 
                     child: Center(child: Text('EN')),
@@ -47,7 +42,6 @@ class DetailScreen extends StatelessWidget {
                 ),
                 padding: EdgeInsets.symmetric(vertical: 10, horizontal: 40),
               ),
-
             ]
         ),
 

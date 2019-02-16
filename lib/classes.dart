@@ -28,6 +28,11 @@ class Collection {
     data.forEach((el) =>  tmpList.add({"en" : el.en, "ru" : el.ru, "collectionId" : this.collectionId.toString(), "mark" : jsonEncode(el.mark)}));
     return jsonEncode(tmpList);
   }
+  void jsonAddToData(String json) {
+    List tmp = jsonDecode(json);
+    tmp.forEach((el) => data.add(new Word(el["en"], el["ru"], int.parse(el["collectionId"]), jsonDecode(el["mark"]))));
+
+  }
 }
 //void main() {
 //  Word a = new Word("hi", "привет", 0, [4]);

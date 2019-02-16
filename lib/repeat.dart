@@ -5,29 +5,33 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';
 import './io.dart';
-
+import './classes.dart';
 
 class FlutterDemo extends StatefulWidget {
   final CounterStorage storage;
-  final int testValue;
-  FlutterDemo({Key key, @required this.storage, @required this.testValue}) : super(key: key);
+  final int repeatNum;
+  Collection jsonData;
+  FlutterDemo({Key key, @required this.storage, @required this.repeatNum, @required this.jsonData}) : super(key: key);
+
 
   @override
   _FlutterDemoState createState() => _FlutterDemoState();
 }
 
 class _FlutterDemoState extends State<FlutterDemo> {
-  int _counter = 0;
+  double _counter = 0;
   String _text = 'w';
-  
+//  Collection _data = new Collection(0, [], DateTime.now());
   @override
   void initState() {
     super.initState();
     widget.storage.readText().then((String value) {
       setState(() {
-        _text = value;
-        _counter = widget.testValue;
+        _text = widget.jsonData.data[1].ru;
+//        _data.jsonAddToData(widget.jsonData);
+        _counter = widget.jsonData.data[1].avg();
       });
+
     });
   }
 
@@ -47,7 +51,7 @@ class _FlutterDemoState extends State<FlutterDemo> {
       appBar: AppBar(title: Text('Reading and Writing Files')),
       body: Center(
         child: Text(
-          'Button tapped $_counter \n $_text ',
+          'Button tapped $_counter \n $_text \n  ',
         ),
       ),
       floatingActionButton: FloatingActionButton(

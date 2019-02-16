@@ -81,11 +81,17 @@ class SelectionButton extends StatelessWidget {
 
   }
   _navigateToRepeat(BuildContext context) async {
+    Word a = new Word("hi", "привет", 0, [4]);
+    Word b = new Word("hijj", "привет", 0, [4, 5]);
+    Word c = new Word("hij", "привет", 0, [4, 3 , 2]);
+    Collection l = new Collection(0, [a,b,c], new DateTime.utc(1989, 11, 9));
+    print(l.jsonReturn());
+
     // Navigator.push returns a Future that will complete after we call
     // Navigator.pop on the Selection Screen!
     final result = await Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => FlutterDemo(storage: CounterStorage(), testValue : 10)), ///////////////////////Стору надо послать
+      MaterialPageRoute(builder: (context) => FlutterDemo(storage: CounterStorage(), repeatNum : 2, jsonData : l)), ///////////////////////Стору надо послать
     );
     print(result.toString());
     // After the Selection Screen returns a result, hide any previous snackbars
