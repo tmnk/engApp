@@ -5,8 +5,12 @@ class Word {
   List mark = new List();
   int collectionId = 0;
   Word(this.en, this.ru, this.collectionId, this.mark);
-  void add(m) {
+  void add(int m) {
     mark.add(m);
+  }
+  int last3 () {
+    if (mark.length != 0 && mark.last == 3) return 1;
+    return 0;
   }
   double avg() {
     if (mark.length == 0) return 0;
