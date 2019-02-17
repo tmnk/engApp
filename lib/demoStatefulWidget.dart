@@ -8,9 +8,9 @@ import './io.dart';
 import './classes.dart';
 import 'dart:math';
 
-class DetailScreen extends StatefulWidget {
+class DemoName extends StatefulWidget {
   final CounterStorage storage;
-  DetailScreen({Key key, @required this.storage}) : super(key: key);
+  DemoName({Key key, @required this.storage}) : super(key: key);
 
 
   @override
@@ -18,7 +18,7 @@ class DetailScreen extends StatefulWidget {
 }
 
 
-class _FlutterDemoState extends State<DetailScreen> {
+class _FlutterDemoState extends State<DemoName> {
   String _text = 'w';
   List data;
 //  Collection _data = new Collection(0, [], DateTime.now());
@@ -44,7 +44,7 @@ class _FlutterDemoState extends State<DetailScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(title: Text('Sync')),
+        appBar: AppBar(title: Text('Page')),
         body: Column(
           children: <Widget>[
             Padding(

@@ -8,11 +8,11 @@ import './io.dart';
 import './classes.dart';
 import 'dart:math';
 
-class FlutterDemo extends StatefulWidget {
+class Repeat extends StatefulWidget {
   final CounterStorage storage;
   final int repeatNum;
   Collection jsonData;
-  FlutterDemo({Key key, @required this.storage, @required this.repeatNum, @required this.jsonData}) : super(key: key);
+  Repeat({Key key, @required this.storage, @required this.repeatNum, @required this.jsonData}) : super(key: key);
 
 
   @override
@@ -20,7 +20,7 @@ class FlutterDemo extends StatefulWidget {
 }
 
 
-class _FlutterDemoState extends State<FlutterDemo> {
+class _FlutterDemoState extends State<Repeat> {
   int _currNum = 0;
   String _text = 'w';
   String _firstWord = "English";
@@ -58,7 +58,7 @@ class _FlutterDemoState extends State<FlutterDemo> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Reading and Writing Files')),
+      appBar: AppBar(title: Text('Repeat')),
       body: Column(
         children: <Widget>[
           Padding(
@@ -99,7 +99,7 @@ class _FlutterDemoState extends State<FlutterDemo> {
                   _chooseNum(5);
                 },
                 child:
-                Center(child: Text('5')),
+                Center(child: Text('Не повторять')),
               ),
               ),
             ),
@@ -115,7 +115,7 @@ class _FlutterDemoState extends State<FlutterDemo> {
                   _chooseNum(3);
                 },
                 child:
-                Center(child: Text('3')),
+                Center(child: Text('Повторить разок')),
               ),
               ),
             ),
@@ -131,7 +131,7 @@ class _FlutterDemoState extends State<FlutterDemo> {
                   _chooseNum(1);
                 },
                 child:
-                Center(child: Text('1')),
+                Center(child: Text('Плохо')),
               ),
               ),
             ),
@@ -148,7 +148,12 @@ class _FlutterDemoState extends State<FlutterDemo> {
     stdout.write('<' + data.length.toString() + ' ');
     if (n == 5) succesData.add(_currWord);
     else if (n == 3) {
-      if (_currWord.last3() == 1) succesData.add(_currWord);
+      if (_currWord.last3() == 1) {
+        if (_currWord.mark.last == 3) {
+          _currWord.mark.last = 4;
+        }
+        succesData.add(_currWord);
+      }
       else {
         if (data.length == 0) succesData.add(_currWord);
         else data.insert(0, _currWord);

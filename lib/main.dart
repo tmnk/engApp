@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import './detail.dart';
 import './repeat.dart';
+import './learn.dart';
 import './io.dart';
 import './classes.dart';
 void main() {
@@ -16,7 +17,7 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Returning Data Demo'),
+        title: Text('engApp'),
 
       ),
       body: Center(child: SelectionButton()),
@@ -61,6 +62,22 @@ class SelectionButton extends StatelessWidget {
           ),
           padding: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
         ),
+        Padding(
+          child : SizedBox(
+//            width: 100,
+            height: 100,
+            child: Center(child:
+            RaisedButton(
+              color : Colors.brown,
+              onPressed: () {
+                _navigateToSync(context);
+              },
+              child: Center(child: Text('Sunc')),
+            ),
+            ),
+          ),
+          padding: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+        ),
       ],
 
     );
@@ -73,7 +90,7 @@ class SelectionButton extends StatelessWidget {
     // Navigator.pop on the Selection Screen!
     final result = await Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => DetailScreen(testValue : 1)),
+      MaterialPageRoute(builder: (context) => Learn(storage: CounterStorage())),
     );
     print(result.toString());
     // After the Selection Screen returns a result, hide any previous snackbars
@@ -91,7 +108,16 @@ class SelectionButton extends StatelessWidget {
     // Navigator.pop on the Selection Screen!
     final result = await Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => FlutterDemo(storage: CounterStorage(), repeatNum : 2, jsonData : l)), ///////////////////////Стору надо послать
+      MaterialPageRoute(builder: (context) => Repeat(storage: CounterStorage(), repeatNum : 2, jsonData : l)), ///////////////////////Стору надо послать
+    );
+    if (result != null) print(result.jsonReturn());
+  }
+  _navigateToSync(BuildContext context) async {
+    // Navigator.push returns a Future that will complete after we call
+    // Navigator.pop on the Selection Screen!
+    final result = await Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => DetailScreen(storage: CounterStorage())),
     );
     print(result.toString());
     // After the Selection Screen returns a result, hide any previous snackbars
