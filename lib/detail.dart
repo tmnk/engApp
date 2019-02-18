@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';
 import './io.dart';
 import './classes.dart';
-import 'dart:math';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class DetailScreen extends StatefulWidget {
   final CounterStorage storage;
